@@ -1,7 +1,7 @@
-# 🚀 RAG Insurance Decisioning System
+# 🚀 Smart Content RAG Engine
 
 **Project Overview**
-A Retrieval-Augmented Generation (RAG) system that processes unstructured documents (PDFs, Word files, emails) and answers natural-language insurance-related questions with accurate, explainable, and fast responses. Built as an API service (FastAPI) that uses vector search (Pinecone) for retrieval, GPT-4 for answer synthesis, and PostgreSQL for metadata and audit logs. The system is designed to return both an answer and a justification for each question.
+A Retrieval-Augmented Generation (RAG) system that processes unstructured digital content (articles, media transcripts, newsroom reports) and answers natural-language questions with accurate, explainable, and fast responses. Built as an API service (FastAPI) that uses vector search (Pinecone) for retrieval, GPT-4 for answer synthesis, and PostgreSQL for metadata and audit logs. The system is designed to return both an answer and a justification for each question, powering next-generation content discovery platforms.
 
 ---
 
@@ -11,7 +11,7 @@ A Retrieval-Augmented Generation (RAG) system that processes unstructured docume
 * **Semantic Retrieval**: Powered by Pinecone (or pluggable vector DB).
 * **Explainable AI**: LLM synthesis using GPT-4 with explicit justifications citing retrieved chunks.
 * **High Performance**: Fast responses targeted to be under **30 seconds** for the whole pipeline (retrieval + LLM inference).
-* **Automation Ready**: API designed for programmatic decisioning workflows (insurance claim triage, rule-checking, data extraction).
+* **Automation Ready**: API designed for programmatic workflows (content moderation, summarization, real-time context extraction).
 * **Traceability**: Audit logs and provenance stored in PostgreSQL.
 
 ---
@@ -50,8 +50,8 @@ Main endpoint that accepts a document URL and an array of questions. Returns an 
 {
   "document_url": "https://example.com/docs/claim123.pdf",
   "questions": [
-    "Is this claim eligible for reimbursement?",
-    "List the diagnoses mentioned and the treatment dates."
+    "What are the main themes of this content?",
+    "List the key figures mentioned and their statements."
   ],
   "options": {
     "top_k": 5,
@@ -66,11 +66,11 @@ Main endpoint that accepts a document URL and an array of questions. Returns an 
 {
   "answers": [
     {
-      "question": "Is this claim eligible for reimbursement?",
-      "answer": "Yes — based on Section 4.2 and the documented dates the claim falls within coverage.",
-      "justification": "Supporting excerpts: [Chunk #12] 'treatment performed on 2024-11-12', [Chunk #5] 'policy covers inpatient procedures for X'...",
+      "question": "What are the main themes of this content?",
+      "answer": "The core theme revolves around the recent technological shifts outlined in Section 4.2.",
+      "justification": "Supporting excerpts: [Chunk #12] 'recent technological shifts on 2024-11-12', [Chunk #5] 'the article covers these innovations'...",
       "sources": [
-        {"chunk_id":"123","page":5,"text_snippet":"treatment performed on 2024-11-12"}
+        {"chunk_id":"123","page":5,"text_snippet":"recent technological shifts on 2024-11-12"}
       ],
       "confidence": 0.87
     }
@@ -105,7 +105,7 @@ MAX_TOP_K=10
 **2. Local Setup**
 ```bash
 git clone <repo-url>
-cd rag-insurance-decisioning
+cd smart-content-rag
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -121,7 +121,7 @@ Open `http://localhost:8000/docs` to view Swagger UI.
 ```bash
 curl -X POST "http://localhost:8000/hackrx/run" \
  -H "Content-Type: application/json" \
- -d '{"document_url":"https://.../claim.pdf","questions":["Is this claim valid?"]}'
+ -d '{"document_url":"https://.../article.pdf","questions":["What is the core argument?"]}'
 ```
 
 **Performance Targets:**
