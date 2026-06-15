@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: smart-content-rag-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_ENV=${PINECONE_ENV}
+      - PINECONE_INDEX=${PINECONE_INDEX}
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/rag_db
+      - MODEL=gpt-4
+      - EMBEDDING_MODEL=text-embedding-3-small
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: smart-content-rag-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=rag_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
