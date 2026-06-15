@@ -1,0 +1,51 @@
+from functools import lru_cache
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    bearer_token: str = Field(validation_alias="HACKATHON_BEARER_TOKEN")
+    gemini_api_key: str = Field(validation_alias="GEMINI_API_KEY")
+    environment: str = Field(default="production", validation_alias="ENVIRONMENT")
+    eval_judge_provider: str = Field(default="gemini", validation_alias="EVAL_JUDGE_PROVIDER")
+    groq_api_key: str = Field(default="", validation_alias="GROQ_API_KEY")
+    cohere_api_key: str = Field(default="", validation_alias="COHERE_API_KEY")
+
+
+    embedding_model: str = "gemini-embedding-001"
+    llm_model: str = "gemini-2.5-flash"
+    reranker_model: str = "BAAI/bge-reranker-v2-m3"
+
+    retrieval_top_k: int = 20
+    rerank_top_n: int = 8
+    final_context_chunks: int = 5
+    parent_chunk_size: int = 1500
+    child_chunk_size: int = 256
+    chunk_overlap: int = 32
+
+    rrf_k: int = 60
+    rrf_dense_weight: float = 0.7
+    rrf_sparse_weight: float = 0.3
+
+    chroma_persist_dir: str = "./chroma_db"
+    qdrant_url: str = ""
+    qdrant_api_key: str = ""
+
+    redis_url: str = "redis://localhost:6379"
+    cache_ttl_seconds: int = 3600
+    semantic_cache_threshold: float = 0.04
+
+    langsmith_api_key: str = ""
+    langsmith_project: str = "policymind-ai"
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_prefix="",
+        extra="ignore",
+    )
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
