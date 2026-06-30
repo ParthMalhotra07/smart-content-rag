@@ -79,3 +79,6 @@ async def serve_frontend():
 app.include_router(health_router)
 app.include_router(query_router)
 
+
+# TODO: Implement dynamic top_k scaling based on document length
+
