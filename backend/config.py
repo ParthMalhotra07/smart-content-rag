@@ -49,3 +49,6 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
+
+# Enhanced prompt structures for digital content analysis
+
