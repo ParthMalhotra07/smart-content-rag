@@ -2,7 +2,7 @@
 
 **Project:** RAG-based Insurance Decisioning System
 
-**Short description**
+**Project Overview**
 A Retrieval-Augmented Generation (RAG) system that processes unstructured documents (PDFs, Word files, emails) and answers natural-language insurance-related questions with accurate, explainable, and fast responses. Built as an API service (FastAPI) that uses vector search (Pinecone) for retrieval, GPT-4 for answer synthesis, and PostgreSQL for metadata and audit logs. The system is designed to return both an answer and a justification for each question.
 
 ---
