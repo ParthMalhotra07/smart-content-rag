@@ -136,3 +136,7 @@ curl -X POST "http://localhost:8000/hackrx/run" \
 * **Prompt Engineering**: Use concise, deterministic prompts with low temperature (0.0–0.2). Limit `top_k` to avoid large token costs. Cache embeddings/index lookups.
 * **Privacy**: Do not log sensitive PII unmasked. Store only metadata and minimal snippets required for justification. Follow applicable regulations (e.g., HIPAA).
 * **Troubleshooting**: If experiencing slow responses, measure download, embedding, vector search, and LLM stages. Increase chunking parallelism or use larger `top_k` caching. For low-quality answers, increase `top_k` or refine chunking strategy.
+
+---
+
+**Status:** ✅ Actively Maintained (2026)
